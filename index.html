@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vimeo player</title>
+    <!-- Kontent Styling -->
+    <link rel="stylesheet" href="custom-element.css" />
+    <!-- Include jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <!-- Kentico Custom elements API-->
+    <script src="https://app.kontent.ai/js-api/custom-element/v1/custom-element.min.js"></script>
+
+    <!-- Custom element CSS styles -->
+    <style>
+      /* We recommended you always set margin to zero to avoid problems when displaying the element in UI */
+      @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic");
+      html {
+        font-family: sans-serif;
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        margin: 0;
+        padding: 10px;
+      }
+
+      #vimeo_input {
+        padding: 10px;
+        margin-bottom: 1em;
+        width: calc(100% - 25px);
+      }
+
+      .disabled_overlay {
+        position: fixed;
+        background-color: #777;
+        z-index: 10;
+        cursor: not-allowed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="disabled_overlay"></div>
+    <div class="vimeo-wrapper">
+      <input
+        id="vimeo_input"
+        type="text"
+        placeholder="2705762 or https://player.vimeo.com/video/2705762"
+      />
+      <div id="vimeo_video"></div>
+    </div>
+
+    <!-- Custom logic of the Custom element -->
+    <script>
+      function updateDisabled(disabled) 
+		{
+		if (disabled) 
+			{
+				$(".disabled_overlay").show();
+			} 
+			else 
+				{
+					$(".disabled_overlay").hide();
+				}
+		}
+
+	  function showVideo(value, width, height) 
+	  {
+        if (value) 
+		{
+          $("#vimeo_video").html('<object width="' + width + '" height="' + height + '" data="https://player.vimeo.com/video/' + value + '"></object>');
+        } 
+		else 
+		{
+          $("#vimeo_video").html("");
+        }
+        updateSize();
+      }
+	  
+	  function getID(url)
+	  {
+		url = url.split("video/");
+		return url[1];
+	  }
+	  
+	  function setup(value, width, height)
+	  {
+		$("#vimeo_input").val(value);
+		showVideo(value, width, height);
+		$("#vimeo_input").on("input", function()
+		{
+			var id = getID($(this).val());
+			CustomElement.SetValue(id);
+			$("#vimeo_input").val(id);
+			showVideo($(this).val(), width, height);
+		});
+	  }
+	  
+	  function updateSize()
+	  {
+		// Update the Custom element height in the Kentico Cloud UI
+        const height = parseInt($("html").height());
+        CustomElement.setHeight(height);
+	  }
+	  
+	  function initCustomElement
+	  {
+		try
+		{
+			CustomElement.init((element, _context) => {
+				var width = element.config ? element.config.width : "400";
+				var height = element.config ? element.config.height : "300";
+				// Setup with initial value and disabled state
+				setup(element.value, width, height);
+				updateDisabled(element.disabled);
+				updateSize();
+			});
+			CustomElement.onDisabledChanged(updateDisabled);
+		}
+		
+		catch (error)
+		{
+			console.error(error);
+			updateDisabled(true);
+		}
+	  }
+		
+      initCustomElement();
+    </script>
+  </body>
+</html>
