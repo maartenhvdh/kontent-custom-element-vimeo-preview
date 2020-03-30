@@ -94,7 +94,7 @@
 		$("#vimeo_input").on("input", function()
 		{
 			var id = getID($(this).val());
-			CustomElement.SetValue(id);
+			CustomElement.setValue(id);
 			$("#vimeo_input").val(id);
 			showVideo($(this).val(), width, height);
 		});
