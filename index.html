@@ -83,8 +83,9 @@
 	  
 	  function getID(url)
 	  {
-		 url = url.split("com/");
-		 return url[0];
+		 url = url.split(/(\d+)/);
+		 return url[1];
+		  
 			
 		/*url = url.split(/https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/);
 		return url[3];*/
