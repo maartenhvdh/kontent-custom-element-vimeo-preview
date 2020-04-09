@@ -1,3 +1,12 @@
-body{
-  margin:0;
+.vp-center {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    /*align-items: top;*/
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    /* padding-top: 0px; */
 }
