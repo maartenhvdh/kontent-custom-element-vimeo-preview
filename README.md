@@ -11,4 +11,18 @@ The whole set up of the element could look like this. <br/>
 ![setup screenshot](custom-element-setup.png)
 
 With the final output looking like this from the editor's perspective. <br/>
-/editor's view screenshot here/
+![Vimeo preview](vimeo-preview.png)
+
+## Setup
+
+1. Deploy the code to a secure public host
+    * See [deploying section](#Deploying) for a really quick option
+2. Follow the instructions in the [Kentico Kontent documentation](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrating-your-own-content-editing-features#a-3--displaying-a-custom-element-in-kentico-kontent) to add the element to a content type.
+    * The `Hosted code URL` is where the element has been deplyed to in step 1
+    * The size of the preview can be changed as per sample parameters in the [JSON Parameters configuration](#json-parameters) section of this readme.
+
+## Deploying
+
+Netlify has made this easy. If you click the deploy button below, it will guide you through the process of deploying it to Netlify and leave you with a copy of the repository in your GitHub account as well.
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/matus666/kontent-custom-element-vimeo-preview)
