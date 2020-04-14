@@ -21,6 +21,15 @@ With the final output looking like this from the editor's perspective. <br/>
     * The `Hosted code URL` is where the element has been deplyed to in step 1
     * The size of the preview can be changed as per sample parameters in the [JSON Parameters configuration](#json-parameters) section of this readme.
 
+## JSON Parameters
+
+```Json
+{
+    "width": 700,
+    "height": 400
+}
+```
+
 ## Deploying
 
 Netlify has made this easy. If you click the deploy button below, it will guide you through the process of deploying it to Netlify and leave you with a copy of the repository in your GitHub account as well.
