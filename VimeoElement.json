@@ -2,7 +2,7 @@
   "title": "Vimeo Preview",
   "description": "This custom element add and preview a Vimeo video. It extracts and stores the video id so it can later be used in the app.",
   "thumbnailUrl": "https://github.com/matus666/kontent-custom-element-vimeo-preview/blob/master/vimeo-preview.png",
-  "readmeUrl": "https://github.com/matus666/kontent-custom-element-vimeo-preview/blob/master/README.md",
+  "readmeUrl": "https://github.com/matus666/kontent-custom-element-vimeo-preview",
   "categories": [
     "Video"
   ]
