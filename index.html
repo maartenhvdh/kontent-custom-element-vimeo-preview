@@ -72,7 +72,7 @@
 	  {
         if (value) 
 		{
-          $("#vimeo_video").html('<object width="' + width + '" height="' + height + '" data="https://player.vimeo.com/video/' + value + '"></object>');
+            $("#vimeo_video").html('<iframe src="https://player.vimeo.com/video/' + value + '" width="' + width + '" height="' + height + '" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>');
         } 
 		else 
 		{
