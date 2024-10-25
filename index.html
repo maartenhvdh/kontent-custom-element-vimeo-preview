@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Vimeo player</title>
     <!-- Kontent Styling -->
-    <!-- link rel="stylesheet" href="custom-element.css" / -->
+    <link rel="stylesheet" href="custom-element.css" />
     <!-- Include jQuery library -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
     <!-- Kentico Custom elements API-->
@@ -56,80 +56,74 @@
 
     <!-- Custom logic of the Custom element -->
     <script>
-      function updateDisabled(disabled) 
-		{
-		if (disabled) 
-			{
-				$(".disabled_overlay").show();
-			} 
-			else 
-				{
-					$(".disabled_overlay").hide();
-				}
-		}
+    function updateDisabled(disabled) {
+      if (disabled) {
+        $(".disabled_overlay").show();
+      } else {
+        $(".disabled_overlay").hide();
+      }
+    }
 
 	  function showVideo(value, width, height) 
 	  {
         if (value) 
 		{
-          $("#vimeo_video").html('<object width="' + width + '" height="' + height + '" data="https://player.vimeo.com/video/' + value + '"></object>');
-        } 
-		else 
-		{
-          $("#vimeo_video").html("");
-        }
-        updateSize();
+    function showVideo(value, width, height) {
+      if (value) {
+        $("#vimeo_video").html('<object width="' + width + '" height="' + height + '" data="https://player.vimeo.com/video/' + value + '"></object>');
+      } else {
+        $("#vimeo_video").html("");
       }
-	  
-	  function getID(url)
-	  {
-		 url = url.split(/(\d+)/);
+      updateSize();
+    }
 		 return url[1];
 	  }
 	  
 	  function setup(value, width, height)
 	  {
-		$("#vimeo_input").val(value);
-		showVideo(value, width, height);
-		$("#vimeo_input").on("input", function()
-		{
-			var id = getID($(this).val());
+    function getID(url) {
+      url = url.split(/(\d+)/);
+      return url[1];
+    }
 			CustomElement.setValue(id);
 			$("#vimeo_input").val(id);
-			showVideo($(this).val(), width, height);
-		});
-	  }
-	  
-	  function updateSize()
-	  {
-		// Update the Custom element height in the Kentico Cloud UI
-        const height = parseInt($("html").height());
-        CustomElement.setHeight(height);
-	  }
-	  
-	  function initCustomElement()
+    function setup(value, width, height) {
+      $("#vimeo_input").val(value);
+      showVideo(value, width, height);
+      $("#vimeo_input").on("input", function() {
+        var id = getID($(this).val());
+        CustomElement.setValue(id);
+        $("#vimeo_input").val(id);
+        showVideo($(this).val(), width, height);
+      });
+    }
 	  {
 		try
 		{
-			CustomElement.init((element, _context) => {
-				var width = element.config ? element.config.width : "400";
-				var height = element.config ? element.config.height : "300";
-				// Setup with initial value and disabled state
-				setup(element.value, width, height);
-				updateDisabled(element.disabled);
+    function updateSize() {
+      // Update the Custom element height in the Kentico Cloud UI
+      const height = parseInt($("html").height());
+      CustomElement.setHeight(height);
+    }
 				updateSize();
 			});
-			CustomElement.onDisabledChanged(updateDisabled);
-		}
-		
-		catch (error)
-		{
-			console.error(error);
-			updateDisabled(true);
-		}
-	  }
-		
+    function initCustomElement() {
+      try {
+        CustomElement.init((element, _context) => {
+          var width = element.config ? element.config.width : "400";
+          var height = element.config ? element.config.height : "300";
+          // Setup with initial value and disabled state
+          setup(element.value, width, height);
+          updateDisabled(element.disabled);
+          updateSize();
+        });
+        CustomElement.onDisabledChanged(updateDisabled);
+      } catch (error) {
+        console.error(error);
+        updateDisabled(true);
+      }
+    }
+
+    $(document).ready(function() {
       initCustomElement();
-    </script>
-  </body>
-</html>
+    });
