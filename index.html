@@ -41,6 +41,12 @@
         height: 100%;
         opacity: 0.1;
       }
+
+      #clear_button {
+        padding: 10px;
+        margin-left: 10px;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -51,84 +57,82 @@
         type="text"
         placeholder="https://vimeo.com/401950743 or 401950743"
       />
+      <button id="clear_button">Clear</button>
       <div id="vimeo_video"></div>
     </div>
 
     <!-- Custom logic of the Custom element -->
     <script>
-      function updateDisabled(disabled) 
-		{
-		if (disabled) 
-			{
-				$(".disabled_overlay").show();
-			} 
-			else 
-				{
-					$(".disabled_overlay").hide();
-				}
-		}
+      function updateDisabled(disabled) {
+        if (disabled) {
+          $(".disabled_overlay").show();
+        } else {
+          $(".disabled_overlay").hide();
+        }
+      }
 
-	  function showVideo(value, width, height) 
-	  {
-        if (value) 
-		{
-            $("#vimeo_video").html('<iframe src="https://player.vimeo.com/video/' + value + '" width="' + width + '" height="' + height + '" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>');
-        } 
-		else 
-		{
+      function showVideo(value, width, height) {
+        if (value) {
+          $("#vimeo_video").html(
+            '<iframe src="https://player.vimeo.com/video/' +
+              value +
+              '" width="' +
+              width +
+              '" height="' +
+              height +
+              '" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>'
+          );
+        } else {
           $("#vimeo_video").html("");
         }
         updateSize();
       }
-	  
-	  function getID(url)
-	  {
-		 url = url.split(/(\d+)/);
-		 return url[1];
-	  }
-	  
-	  function setup(value, width, height)
-	  {
-		$("#vimeo_input").val(value);
-		showVideo(value, width, height);
-		$("#vimeo_input").on("input", function()
-		{
-			var id = getID($(this).val());
-			CustomElement.setValue(id);
-			$("#vimeo_input").val(id);
-			showVideo($(this).val(), width, height);
-		});
-	  }
-	  
-	  function updateSize()
-	  {
-		// Update the Custom element height in the Kentico Cloud UI
+
+      function getID(url) {
+        url = url.split(/(\d+)/);
+        return url[1];
+      }
+
+      function setup(value, width, height) {
+        $("#vimeo_input").val(value);
+        showVideo(value, width, height);
+        $("#vimeo_input").on("input", function () {
+          var id = getID($(this).val());
+          CustomElement.setValue(id);
+          $("#vimeo_input").val(id);
+          showVideo($(this).val(), width, height);
+        });
+
+        $("#clear_button").on("click", function () {
+          $("#vimeo_input").val("");
+          CustomElement.setValue("");
+          showVideo("", width, height);
+        });
+      }
+
+      function updateSize() {
+        // Update the Custom element height in the Kentico Cloud UI
         const height = parseInt($("html").height());
         CustomElement.setHeight(height);
-	  }
-	  
-	  function initCustomElement()
-	  {
-		try
-		{
-			CustomElement.init((element, _context) => {
-				var width = element.config ? element.config.width : "400";
-				var height = element.config ? element.config.height : "300";
-				// Setup with initial value and disabled state
-				setup(element.value, width, height);
-				updateDisabled(element.disabled);
-				updateSize();
-			});
-			CustomElement.onDisabledChanged(updateDisabled);
-		}
-		
-		catch (error)
-		{
-			console.error(error);
-			updateDisabled(true);
-		}
-	  }
-		
+      }
+
+      function initCustomElement() {
+        try {
+          CustomElement.init((element, _context) => {
+            var width = element.config ? element.config.width : "400";
+            var height = element.config ? element.config.height : "300";
+            // Setup with initial value and disabled state
+            setup(element.value, width, height);
+            updateDisabled(element.disabled);
+            updateSize();
+          });
+          CustomElement.onDisabledChanged(updateDisabled);
+        } catch (error) {
+          console.error(error);
+          updateDisabled(true);
+        }
+      }
+
       initCustomElement();
     </script>
   </body>
