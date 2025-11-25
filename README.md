@@ -1,6 +1,6 @@
-# Vimeo preview custom element for Kentico Kontent
+# Vimeo preview custom element for Kontent.ai
 
-This Kentico Kontent <a href="https://docs.kontent.ai/tutorials/develop-apps/integrate/integrating-your-own-content-editing-features">custom element</a> allows the editor to preview a Vimeo video directly in <a href="https://kontent.ai/">Kontent</a>'s UI. 
+This Kontent.ai <a href="https://kontent.ai/learn/docs/custom-elements">custom element</a> allows the editor to preview a Vimeo video directly in <a href="https://kontent.ai/">Kontent.ai</a>'s UI. 
 The element can be tested by configuring the following URL for the custom element's "Hosted code URL" field.
 https://vimeo-preview.netlify.com/
 
@@ -17,7 +17,7 @@ With the final output looking like this from the editor's perspective. <br/>
 
 1. Deploy the code to a secure public host
     * See [deploying section](#Deploying) for a really quick option
-2. Follow the instructions in the [Kentico Kontent documentation](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrating-your-own-content-editing-features#a-3--displaying-a-custom-element-in-kentico-kontent) to add the element to a content type.
+2. Follow the instructions in the [Kontent.ai documentation](https://kontent.ai/learn/docs/custom-elements) to add the element to a content type.
     * The `Hosted code URL` is where the element has been deplyed to in step 1
     * The size of the preview can be changed as per sample parameters in the [JSON Parameters configuration](#json-parameters) section of this readme.
 
